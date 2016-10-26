@@ -5,4 +5,6 @@ require "interswitch/auth_data"
 class Interswitch
   include SecureData
   include AuthData
+  include SecureData
 end
+

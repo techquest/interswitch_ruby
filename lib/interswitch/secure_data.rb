@@ -78,12 +78,9 @@ module SecureData
   def SecureData.get_mac_data_version_9(*transaction_parameters)
     mac_data = Array.new(1, 0).join
 
-    # if (transaction_parameters.length > 0 && transaction_parameters.is_a?(Array))
-    #   transaction_parameters.each { |parameter|
-    #     puts parameter
-    #     mac_data += parameter
-    #   }
-    # end
+    if (transaction_parameters != nil )
+      mac_data += transaction_parameters.join
+    end
     return mac_data
   end
 

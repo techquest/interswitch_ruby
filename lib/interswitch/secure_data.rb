@@ -3,7 +3,7 @@ require 'base64'
 module SecureData
 
 
-  def SecureData.get_secure_data(public_cert_path, pan, exp_date, cvv, pin, *transaction_parameters)
+  def get_secure_data(public_cert_path, pan, exp_date, cvv, pin, *transaction_parameters)
 
     pin_des_key = self.hex_to_bin(self.generate_key)
     mac_des_key = ""
@@ -38,21 +38,21 @@ module SecureData
 
   end
 
-  def SecureData.generate_key
+  def generate_key
     triple_des = OpenSSL::Cipher::Cipher.new('des-ede')
     triple_des.encrypt
     return triple_des.random_key
   end
 
-  def SecureData.bin_to_hex(string)
+  def bin_to_hex(string)
     string.each_byte.map { |b| b.to_s(16) }.join
   end
 
-  def SecureData.hex_to_bin(string)
+  def hex_to_bin(string)
     string.scan(/../).map { |x| x.hex.chr }.join
   end
 
-  def SecureData.get_mac (mac_data, mac_key, mac_version)
+  def get_mac (mac_data, mac_key, mac_version)
     mac_cipher = ""
     if mac_version.to_i == 8
       cipher = OpenSSL::Cipher::Cipher.new('AES-128-CBC-HMAC-SHA1')
@@ -75,7 +75,7 @@ module SecureData
   end
 
 
-  def SecureData.get_mac_data_version_9(*transaction_parameters)
+  def get_mac_data_version_9(*transaction_parameters)
     mac_data = Array.new(1, 0).join
 
     if (transaction_parameters != nil )
@@ -84,7 +84,7 @@ module SecureData
     return mac_data
   end
 
-  def SecureData.get_pin_block(pin, cvv2, expiry_date, key_bytes)
+  def get_pin_block(pin, cvv2, expiry_date, key_bytes)
     pin_new = pin == nil || pin.length == 0 ? "0000" : pin
     cvv2_new = cvv2 == nil || cvv2.length == 0 ? "000" : cvv2
     expiry_date_new = expiry_date == nil || expiry_date.length == 0 ? "0000" : expiry_date

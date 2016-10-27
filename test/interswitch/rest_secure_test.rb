@@ -2,9 +2,9 @@ require 'test/unit'
 require 'interswitch/rest_secure'
 require 'base64'
 class RestSecureTest < Test::Unit::TestCase
-
+  include RestSecure
   def test_generate_authorization
-    assert_equal "InterswitchAuth " + Base64.encode64('IKIAC48CB151885D99D0F15395F124AA6E4C24BE952D'), RestSecure.generate_authorization('IKIAC48CB151885D99D0F15395F124AA6E4C24BE952D')
+    assert_equal "InterswitchAuth " + Base64.encode64('IKIAC48CB151885D99D0F15395F124AA6E4C24BE952D'), generate_authorization('IKIAC48CB151885D99D0F15395F124AA6E4C24BE952D')
   end
 
 
@@ -15,7 +15,7 @@ class RestSecureTest < Test::Unit::TestCase
     client_id  = 'IKIAC48CB151885D99D0F15395F124AA6E4C24BE952D'
     secret  = 'W60Ce5PlidQ72fMEyZ2qXlFPrStoQb004zFmtJHF5Z0='
 
-    headers = RestSecure.generate_auth_headers(
+    headers = generate_auth_headers(
         :client_id => client_id,
         :secret => secret,
         :http_method => http_method,

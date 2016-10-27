@@ -3,9 +3,10 @@ require 'addressable/uri'
 require 'open-uri'
 require 'digest'
 require 'base64'
+require 'rack'
 
 module RestSecure
-  def self.generate_auth_headers(hash={})
+  def generate_auth_headers(hash={})
 
     if !valid_params(hash)
       return nil
@@ -39,11 +40,11 @@ module RestSecure
     return nil
   end
 
-  def self.generate_signature(client_id, secret, url, http_method, timestamp, nonce, tran_parameters)
+  def generate_signature(client_id, secret, url, http_method, timestamp, nonce, tran_parameters)
 
     url = url.sub("http://", "https://")
-    encoded_url = Addressable::URI.escape(url).to_s
-
+    encoded_url = Rack::Utils.escape(url).to_s
+    puts encoded_url
     base_string = http_method + "&" +
         encoded_url + "&" +
         timestamp + "&" +
@@ -64,21 +65,21 @@ module RestSecure
     return signature
   end
 
-  def self.generate_authorization(client_id)
+  def generate_authorization(client_id)
     "InterswitchAuth #{Base64.encode64(client_id)}"
   end
 
 
-  def self.generate_timestamp
+  def generate_timestamp
     Time.now.to_i.to_s
   end
 
-  def self.generate_nonce
+  def generate_nonce
     SecureRandom.random_number(99999999999999999999999).to_s
   end
 
 
-  def self.valid_params(hash={})
+  def valid_params(hash={})
 
     if hash[:client_id].to_s.strip.length == 0
       puts ">>>Empty client id supplied.."

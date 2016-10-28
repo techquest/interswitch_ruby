@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["nnaemeka.okoroafor@interswitchgroup.com"]
 
   spec.summary       = %q{Perform common actions for interacting with Interswitch payment systems}
-  spec.description   = %q{A utility gem for basic interswitch payment functionalities}
+  spec.description   = %q{A utility gem with basic interswitch payment functionalities}
   spec.homepage      = 'https://github.com/techquest/interswitch_ruby'
   spec.license       = 'MIT'
 

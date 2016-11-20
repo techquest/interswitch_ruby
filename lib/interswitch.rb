@@ -27,7 +27,7 @@ class Interswitch
       @token_url = InterswitchVersion::PROD_URL
     end
 
-    @client = OAuth2::Client.new(@client_id, @secret_key, :site => @token_url, :token_url => "/passport/oauth/token")
+    @client = OAuth2::Client.new(@client_id, @secret_key, :site => @token_url, :token_url => "/passport/oauth/token", :connection_opts => {:ssl => {:verify => false}})
     oauth_response = @client.client_credentials.get_token
     @client_token = oauth_response.token
 

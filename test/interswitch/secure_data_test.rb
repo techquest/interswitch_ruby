@@ -8,7 +8,7 @@ class SecureDataTest < Test::Unit::TestCase
     pin = "1111"
     expiry_date = "5004"
     cvv = "111"
-    secure_data = get_secure_data(cert_path, pan, expiry_date, cvv, pin, {})
+    secure_data = get_secure_data(cert_path, pan, expiry_date, cvv, pin, 'msisdn' => "1234")
     assert secure_data != nil
   end
 end
